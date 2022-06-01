@@ -49,3 +49,34 @@ function solution(X, A) {
 
     return result;
 }
+
+function solution(X, A) {
+    let array = []
+    array.length = X
+    array.fill(-1);
+    let check = 0
+    for(let i =0 ; i<A.length ; i++){
+        if(array[A[i]-1] === -1){
+            array[A[i]-1] = i;
+            check++
+        }
+
+        if(check === X){
+            break;
+        }
+    }
+
+    let maxTime = 0;
+    for(let i = 0 ; i < X ; i++){
+        if(array[i] === -1){
+            maxTime = -1;
+            break;
+        }
+
+        if(array[i] > maxTime){
+            maxTime = array[i]
+        }
+    }
+
+    return maxTime;
+}
