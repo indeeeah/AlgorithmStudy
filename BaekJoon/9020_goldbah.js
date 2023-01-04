@@ -9,37 +9,33 @@ rl.on("line", (line) => {
     arr.push(parseInt(line));
 }).on("close", () => {
     for (let i = 1 ; i < arr.length ; i++) {
-        let nums = new Set();
+        let nums = [];
         
         for (let j = 2 ; j <= arr[i] ; j++) {
-            nums.add(j);
+            nums[j] = j;
         }
 
         let sqr = Math.sqrt(arr[i]);
 
         for (let j = 2 ; j <= sqr ; j++) {
             for (let z = j + j ; z <= arr[i] ; z += j) {
-                nums.delete(z);
+                nums[z] = 0;
             }
         }
 
-        let numsArr = [];
-        for (let j of nums.values()) {
-            numsArr.push(j);
+        nums = nums.filter(item => item !== 0);
+
+        let answer = [];
+        for (let j = 0 ; nums[j] < arr[i] / 2 + 1 ; j++) {
+            let index = nums.indexOf(arr[i] - nums[j]);
+
+            if (index !== -1) {
+                answer.push([nums[j], nums[index]]);
+            }
         }
 
-        let flag = false;
-        for (let j = 0 ; j < numsArr.length ; j++) {
-            for (let z = 0 ; z < numsArr.length ; z++) {
-                if (numsArr[j] + numsArr[z] === arr[i]) {
-                    console.log(numsArr[j] + ' ' + numsArr[z]);
-                    flag = true;
-                    break;
-                }
-            }
-            if(flag === true) {
-                break;
-            }
-        }
+        let ans = answer.pop();
+
+        console.log(`${ans[0]} ${ans[1]}`);
     }
 });
