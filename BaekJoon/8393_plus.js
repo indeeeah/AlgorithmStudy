@@ -1,3 +1,11 @@
+/**
+ * n이 주어졌을 때, 1부터 n까지 합을 구하는 프로그램을 작성하시오.
+ * 1부터 n까지 합을 출력한다.
+ * 
+ * 얘재 압력 1 - 3
+ * 예제 츌력 1 - 6
+ */
+
 const readline = require("readline");
 const rl = readline.createInterface({
     input: process.stdin,
