@@ -39,11 +39,38 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
-let ob = {};
+let ob = new Set();
+
+function sorting (a, b) {
+    let result = 0;
+    for (let i = 0 ; i < a.length ; i++) {
+        let prev = a.charCodeAt(i);
+        let cur = b.charCodeAt(i);
+
+        if (prev < cur) {
+            result = -1;
+            break;
+        }
+
+        if (prev > cur) {
+            result = 1;
+            break;
+        }
+    }
+    return result;
+}
+
 rl.on("line", (line) => {
     if (isNaN(line)) {
-        ob.add()
+        ob.add(line);
     }
 }).on("close", () => {
+    let arr = [];
 
+    for (let i of ob) {
+        arr.push(i);
+    }
+
+    arr.sort((a, b) => a.length - b.length || sorting(a, b));
+    console.log(arr.join('\n'));
 });
