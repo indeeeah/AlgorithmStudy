@@ -29,10 +29,42 @@ rl.on('line', (line) => {
 }).on('close', () => {
     let T = input.shift()[0];
 
+    let result = [];
     for (let i = 0 ; i < T ; i++) {
         let [x1, y1, r1, x2, y2, r2] = input[i];
         
+        // (x1, y1)와 (x2, y2)사이의 거리
+        let lng = Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2));
+
+
+        // 1. 겹쳐있는 경우
+        if (lng === 0) {
+            if (r1 === r2) {
+                result.push(-1);
+            } else {
+                result.push(0);
+            }
+        } else if (lng === parseInt(r1) + parseInt(r2)) {
+            // 2. 바깥으로 붙어 있는 경우
+            result.push(1);
+        } else if (lng < parseInt(r1) + parseInt(r2)) {
+            if (lng + Math.min(r1, r2) < Math.max(r1, r2)) {
+                // 3. 원이 안으로 포개져 있는 경우
+                result.push(0);
+            } else if (lng + Math.min(r1, r2) === Math.max(r1, r2)) {
+                // 4. 내접한 경우
+                result.push(1);
+            } else {
+                // 5. 교집합 모양으로 붙어있는 경우
+                result.push(2);
+            }
+        } else {
+            // 6. 두 점이 멀리 떨어져 있는 경우
+            result.push(0);
+        }
     }
+
+    console.log(result.join('\n'));
 
     process.exit;
 });
