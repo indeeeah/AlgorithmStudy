@@ -74,6 +74,37 @@ rl.on('line', (line) => {
     input.push(line.split(' ').map((element) => parseInt(element)));
 }).on('close', () => {
     let T = input.shift();
-    let [x1, y1, x2, y2] = input.shift();
-    
+    let result = [];
+
+    while (input.length > 0) {
+        let [x1, y1, x2, y2] = input.shift();
+
+        let num = input.shift();
+
+        let count = 0;
+        for (let i = 0 ; i < num ; i++) {
+            let lng1 = Math.sqrt(Math.pow(Math.abs(x1 - input[0][0]), 2) + Math.pow(Math.abs(y1 - input[0][1]), 2));
+            let lng2 = Math.sqrt(Math.pow(Math.abs(x2 - input[0][0]), 2) + Math.pow(Math.abs(y2 - input[0][1]), 2));
+
+            if (lng1 < parseInt(input[0][2]) && lng2 < parseInt(input[0][2])) {
+
+            } else {
+                if (lng1 < parseInt(input[0][2])) {
+                    count++;
+                }
+                if (lng2 < parseInt(input[0][2])) {
+                    count++;
+                }
+            }
+
+            input.shift();
+        }
+
+
+        result.push(count);
+    }
+
+    console.log(result.join('\n'));
+
+    process.exit;
 });
