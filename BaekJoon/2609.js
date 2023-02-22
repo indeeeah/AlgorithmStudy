@@ -18,25 +18,30 @@ const rl = readline.createInterface({
 rl.on('line', (line) => {
     input = line.split(' ').map((element) => parseInt(element));
 }).on('close', () => {
-    // let result = 1;
+    let result = 1;
     
-    // for (let i = 2 ; i < Math.min(...input) ; i++) {
-    //     while (input[0] % i === 0 && input[1] % i === 0) {
-    //         input[0] = input[0] / i;
-    //         input[1] = input[1] / i;
-
-    //         result = result * i;
-    //     }
-
-    //     if (i === Math.min(...input)) {
-    //         console.log(result);
-
-    //         result = result * input[0] * input[1];
-
-    //         console.log(result);
-
-    //         break;
-    //     }
-    // }
+    if (input[0] === 1 || input[1] === 1) {
+        console.log(`1\n${Math.max(...input)}`);
+    } else {
+        for (let i = 2 ; i <= Math.min(...input) ; i++) {
+            while (input[0] % i === 0 && input[1] % i === 0) {
+                input[0] = input[0] / i;
+                input[1] = input[1] / i;
+    
+                result = result * i;
+            }
+    
+            if (i >= Math.min(...input)) {
+                console.log(result);
+    
+                result = result * input[0] * input[1];
+    
+                console.log(result);
+    
+                break;
+            }
+        }
+    }
+    
     process.exit;
 });
