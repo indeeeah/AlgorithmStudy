@@ -6,6 +6,15 @@
  * 둘째 줄부터 M개의 줄에 걸쳐서 공을 넣는 방법이 주어진다. 각 방법은 세 정수 i j k로 이루어져 있으며, i번 바구니부터 j번 바구니까지에 k번 번호가 적혀져 있는 공을 넣는다는 뜻이다. 예를 들어, 2 5 6은 2번 바구니부터 5번 바구니까지에 6번 공을 넣는다는 뜻이다. (1 ≤ i ≤ j ≤ N, 1 ≤ k ≤ N)
  * 도현이는 입력으로 주어진 순서대로 공을 넣는다.
  * 1번 바구니부터 N번 바구니에 들어있는 공의 번호를 공백으로 구분해 출력한다. 공이 들어있지 않은 바구니는 0을 출력한다.
+ * 
+ * 예제 입력 1
+ * 5 4
+ * 1 2 3
+ * 3 4 4
+ * 1 4 1
+ * 2 2 2
+ * 예제 출력 1
+ * 1 2 1 1 0
  */
 
 const readline = require('readline');
@@ -14,6 +23,25 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+
+let max = 0;
+let input = [];
 rl.on('line', (line) => {
-    
-})
+    let arr = line.split(' ').map((element) => parseInt(element));
+
+    if (arr.length === 2) {
+        max = arr[0];
+
+        for (let i = 0 ; i < max ; i++) {
+            input.push(0);
+        }
+    } else {
+        for (let i = arr[0] - 1 ; i < arr[1] ; i++) {
+            input[i] = arr[2];
+        }
+    }
+}).on('close', () => {
+    console.log(input.join(' '));
+
+    process.exit;
+});
